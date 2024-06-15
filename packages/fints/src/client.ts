@@ -121,7 +121,18 @@ export abstract class Client {
                 endDate,
             }),
         );
-        if (dialog.hktanVersion >= 6) {
+        if (dialog.hktanVersion >= 7) {
+            segments.push(
+                new HKTAN({
+                    segNo: 4,
+                    version: 7,
+                    process: "4",
+                    segmentReference: "HKKAZ",
+                    medium: "Alle Geräte",
+                }),
+            );
+        }
+        else if (dialog.hktanVersion >= 6) {
             segments.push(
                 new HKTAN({
                     segNo: 4,
@@ -154,11 +165,11 @@ export abstract class Client {
         segments.push(
             new HKTAN({
                 segNo: 3,
-                version: 6,
+                version: 7,
                 process: "2",
                 segmentReference: "HKKAZ",
                 aref: transactionReference,
-                medium: dialog.tanMethods[0].name,
+                medium: "Alle Geräte"
             }),
         );
         return await this.sendStatementRequest(dialog, segments, tan);

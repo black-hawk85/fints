@@ -130,7 +130,10 @@ export class Dialog extends DialogConfig {
             new HKIDN({ segNo: 3, blz, name, systemId: "0" }),
             new HKVVB({ segNo: 4, productId: this.productId, lang: 0 }),
         ];
-        if (this.hktanVersion >= 6) {
+        if (this.hktanVersion >= 7) {
+            segments.push(new HKTAN({ segNo: 5, version: 7, process: "4" }));
+        }
+        else if (this.hktanVersion >= 6) {
             segments.push(new HKTAN({ segNo: 5, version: 6, process: "4" }));
         }
         const response: Response = await this.send(
